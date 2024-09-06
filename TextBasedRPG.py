@@ -48,8 +48,6 @@ class Enemy:
         self.armor = armor
 
 
-player = Player(100, 0, 1, 0, 1)
-
 
 
     
