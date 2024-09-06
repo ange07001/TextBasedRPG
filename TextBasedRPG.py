@@ -30,11 +30,23 @@ while IsMainMenu:
         print(error)
 
 class Player:
-    def __init__(self, health, level, speed, armor, damage):
+    def __init__(self, health, xp, speed, armor, damage):
         self.health = health
-        self.level = level
+        self.xp = xp
         self.speed = speed
         self.armor = armor
         self.damage = damage
 
-player = Player(100, 1, 1, 0, 1)
+class Enemy:
+    def __init__(self, health, level, speed, armor):
+        self.health = health
+        self.level = level
+        self.speed = speed
+        self.armor = armor
+
+
+player = Player(100, 0, 1, 0, 1)
+
+
+
+    
