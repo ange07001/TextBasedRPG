@@ -20,7 +20,7 @@ print(banner)
 
 while IsMainMenu:
     try:
-        mainMenu = int(input("Main Menu\n1. Play\n2. Exit\n"))
+        mainMenu = int(input("Main Menu\n[1] Play\n[2] Exit\n"))
         if mainMenu == 1:
             Play = True
             IsMainMenu = False
