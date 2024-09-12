@@ -35,6 +35,23 @@ banner = """
 
 print(banner)
 print("#"*10 + " initializing " + "#"*10)
+
+class Player:
+    def __init__(self, health, xp, speed, armor, damage):
+        self.health = health
+        self.xp = xp
+        self.speed = speed
+        self.armor = armor
+        self.damage = damage
+
+class Enemy:
+    def __init__(self, health, level, speed, armor):
+        self.health = health
+        self.level = level
+        self.speed = speed
+        self.armor = armor
+
+
 if os.path.exists(file_path):
     print("Save file already exists, loading save game...")
 elif not os.path.exists(file_path):
@@ -59,20 +76,7 @@ while IsMainMenu:
     except ValueError:
         print(error)
 
-class Player:
-    def __init__(self, health, xp, speed, armor, damage):
-        self.health = health
-        self.xp = xp
-        self.speed = speed
-        self.armor = armor
-        self.damage = damage
 
-class Enemy:
-    def __init__(self, health, level, speed, armor):
-        self.health = health
-        self.level = level
-        self.speed = speed
-        self.armor = armor
 
 
 
