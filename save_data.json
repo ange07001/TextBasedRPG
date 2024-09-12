@@ -1,0 +1,10 @@
+{
+   "mustang": {
+      "color": "red",
+      "year": 1962
+   },
+   "f150": {
+      "color": "blue",
+      "year": 2005
+   }
+}

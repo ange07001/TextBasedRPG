@@ -1,6 +1,25 @@
 import math
 import json
+import os
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+filename = 'save_data.json'
+file_path = os.path.join(current_dir, filename)
+
+
+save_data = {
+    "mustang": {
+        "color":"red",
+        "year": 1962,
+    },
+    "f150": {
+        "color": "blue",
+        "year": 2005
+    },
+}
+
+with open(file_path, 'w') as json_file:
+    json.dump(save_data, json_file, indent=3)
 
 
 IsMainMenu = True
