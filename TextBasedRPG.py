@@ -18,11 +18,7 @@ save_data = {
     },
 }
 
-with open(file_path, 'w') as json_file:
-    json.dump(save_data, json_file, indent=3)
 
-
-IsMainMenu = True
 error = "\n" + "=" * 10 + "ERROR" + "=" * 10 + "\n"
 
 banner = """
@@ -36,6 +32,16 @@ banner = """
 """
 
 print(banner)
+print("#"*10 + " initializing " + "#"*10)
+if os.path.exists(file_path):
+    print("Save file already exists, loading save game...")
+elif not os.path.exists(file_path):
+    print("Save file does not exist or is corrupt, creating a new one...")
+
+    with open(file_path, 'w') as json_file:
+      json.dump(save_data, json_file, indent=3)
+
+print("\n")
 
 while IsMainMenu:
     try:
