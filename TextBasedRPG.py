@@ -2,6 +2,8 @@ import math
 import json
 import os
 
+IsMainMenu = True
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 filename = 'save_data.json'
 file_path = os.path.join(current_dir, filename)
