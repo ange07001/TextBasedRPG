@@ -8,19 +8,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 filename = 'save_data.json'
 file_path = os.path.join(current_dir, filename)
 
-
-save_data = {
-    "mustang": {
-        "color":"red",
-        "year": 1962,
-    },
-    "f150": {
-        "color": "blue",
-        "year": 2005
-    },
-}
-
-
 error = "\n" + "=" * 10 + "ERROR" + "=" * 10 + "\n"
 
 banner = """
@@ -44,6 +31,41 @@ class Player:
         self.armor = armor
         self.damage = damage
 
+    def playerToDict(self):
+        return {
+            "health": self.health,
+            "xp": self.xp,
+            "speed": self.speed,
+            "armor": self.armor,
+            "damage": self.damage
+        }
+
+    @classmethod
+    def dictToPlayer(cls, data):
+        return cls(
+            health=data["health"],
+            xp=data["xp"],
+            speed=data["speed"],
+            armor=data["armor"],
+            damage=data["damage"]
+        )
+
+def saveGame(player):
+    state = player.playerToDict()
+    with open(file_path, "w") as f:
+        json.dump(state, f, indent=3)
+
+def loadGame():
+    try:
+        with open(file_path, "r") as f:
+            data = json.load(f)
+            return Player.dictToPlayer(data)
+    except FileNotFoundError:
+        print("Save file was not found.")
+    except json.JSONDecodeError:
+        print("file was corrupted or not in proper JSON format.")
+    return None   
+
 class Enemy:
     def __init__(self, health, level, speed, armor):
         self.health = health
@@ -54,11 +76,11 @@ class Enemy:
 
 if os.path.exists(file_path):
     print("Save file already exists, loading save game...")
+    player = loadGame()
 elif not os.path.exists(file_path):
     print("Save file does not exist or is corrupt, creating a new one...")
-
-    with open(file_path, 'w') as json_file:
-      json.dump(save_data, json_file, indent=3)
+    player = Player(100, 0, 1, 0, 1)
+    saveGame(player)
 
 print("\n")
 
@@ -75,10 +97,3 @@ while IsMainMenu:
             print(error)
     except ValueError:
         print(error)
-
-
-
-
-
-
-    
