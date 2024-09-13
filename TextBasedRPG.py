@@ -2,7 +2,7 @@ import math
 import json
 import os
 
-IsMainMenu = True
+isMainMenu = True
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 filename = 'save_data.json'
@@ -50,8 +50,8 @@ class Player:
             damage=data["damage"]
         )
 
-def saveGame(player):
-    state = player.playerToDict()
+def saveGame():
+    state = save_game
     with open(file_path, "w") as f:
         json.dump(state, f, indent=3)
 
@@ -59,12 +59,14 @@ def loadGame():
     try:
         with open(file_path, "r") as f:
             data = json.load(f)
-            return Player.dictToPlayer(data)
+            save_game = data
+            loadedPlayer = data["player"]
+            player = Player.dictToPlayer(loadedPlayer)
+            return(player,save_game)
     except FileNotFoundError:
         print("Save file was not found.")
     except json.JSONDecodeError:
-        print("file was corrupted or not in proper JSON format.")
-    return None   
+        print("file was corrupted or not in proper JSON format.")  
 
 class Enemy:
     def __init__(self, health, level, speed, armor):
@@ -76,23 +78,35 @@ class Enemy:
 
 if os.path.exists(file_path):
     print("Save file already exists, loading save game...")
-    player = loadGame()
+    player, save_game = loadGame()
 elif not os.path.exists(file_path):
     print("Save file does not exist or is corrupt, creating a new one...")
     player = Player(100, 0, 1, 0, 1)
-    saveGame(player)
+    
+    save_game = {
+        "player": Player.playerToDict(player),
+
+        "gameState": {
+            "location": "swamps"
+        },
+        "stats": {
+            "xpGained": 500
+        }
+    }
+
+    saveGame()
 
 print("\n")
 
-while IsMainMenu:
+while isMainMenu:
     try:
         mainMenu = int(input("Main Menu\n[1] Play\n[2] Exit\n"))
         if mainMenu == 1:
-            Play = True
-            IsMainMenu = False
+            play = True
+            isMainMenu = False
         elif mainMenu == 2:
-            Play = False
-            IsMainMenu = False
+            play = False
+            isMainMenu = False
         else:
             print(error)
     except ValueError:
