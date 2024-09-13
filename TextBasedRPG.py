@@ -2,7 +2,7 @@ import math
 import json
 import os
 
-IsMainMenu = True
+isMainMenu = True
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 filename = 'save_data.json'
@@ -98,15 +98,15 @@ elif not os.path.exists(file_path):
 
 print("\n")
 
-while IsMainMenu:
+while isMainMenu:
     try:
         mainMenu = int(input("Main Menu\n[1] Play\n[2] Exit\n"))
         if mainMenu == 1:
-            Play = True
-            IsMainMenu = False
+            play = True
+            isMainMenu = False
         elif mainMenu == 2:
-            Play = False
-            IsMainMenu = False
+            play = False
+            isMainMenu = False
         else:
             print(error)
     except ValueError:
