@@ -80,6 +80,15 @@ if os.path.exists(file_path):
 elif not os.path.exists(file_path):
     print("Save file does not exist or is corrupt, creating a new one...")
     player = Player(100, 0, 1, 0, 1)
+    save_game = {
+        "player":  {
+            player.playerToDict()
+        },
+        "gameState": {
+            "location": "swamps"
+        },
+    }
+    
     saveGame(player)
 
 print("\n")
