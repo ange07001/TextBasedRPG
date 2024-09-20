@@ -165,4 +165,21 @@ while play:
             isStats = False
             isMenu = True
     while isExplore:
-        print()        
+        try:
+            exploreInput = int(input(f"\nChoose the location of your exploration\n{Ansi.Format('[1] Forest Outskirts','32')}\n[2] ?????\n[3] ?????\n[4] Exit\n"))
+            match exploreInput:
+                case 1:
+                    isExplore = False
+                case 2|3:
+                    Ansi.Print("\nThe location is not discoverd (or added)","33")
+                case 4:
+                    isExplore = False
+                    isMenu = True
+                case _:
+                    print(error)
+        except ValueError:
+            print(error)
+
+
+        
+        
