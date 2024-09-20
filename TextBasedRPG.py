@@ -18,6 +18,8 @@ isMainMenu = True
 isMenu = False
 isStats = False
 isExplore = False
+isForestoutskirtsDescription = False
+isLocationForestOutskirts = False
 
 
 Ansi.reset()
@@ -170,6 +172,7 @@ while play:
             match exploreInput:
                 case 1:
                     isExplore = False
+                    isForestoutskirtsDescription = True
                 case 2|3:
                     Ansi.Print("\nThe location is not discoverd (or added)","33")
                 case 4:
@@ -179,7 +182,22 @@ while play:
                     print(error)
         except ValueError:
             print(error)
-
-
-        
-        
+    while isForestoutskirtsDescription:
+        try:
+            Ansi.Print("\nForest Outskirts\n","32")
+            forestoutskirtsDescriptionInput = int(input("""The Forest Outskirts is a dense and mysterious woodland located on the border of a thriving kingdom. Known for its thick,towering trees and ever-present mist,
+the area is a blend of untamed wilderness and forgotten ruins. Ancient stone paths, hidden beneath years of undergrowth, crisscross theterrain.
+The sound of distant creatures can be heard at all hours, and rumors abound of mystical artifacts lost in the forest’s depths.\n\n[1] Enter\n[2] Exit\n"""))
+            match forestoutskirtsDescriptionInput:
+                case 1:
+                    isLocationForestOutskirts = True
+                    isForestoutskirtsDescription = False
+                case 2:
+                    isMenu = True
+                    isForestoutskirtsDescription = False
+                case _:
+                    print(error)
+        except ValueError:
+            print(error)
+    
+    ##while isLocationForestOutskirts:
