@@ -17,6 +17,7 @@ play = True
 isMainMenu = True
 isMenu = False
 isStats = False
+isExplore = False
 
 
 Ansi.reset()
