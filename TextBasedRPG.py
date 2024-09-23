@@ -16,6 +16,7 @@ class Ansi:
 play = True
 isMainMenu = True
 isMenu = False
+isInventory = False
 isStats = False
 isExplore = False
 isForestoutskirtsDescription = False
@@ -186,7 +187,7 @@ while play:
         try:
             Ansi.Print("\nForest Outskirts\n","32")
             forestoutskirtsDescriptionInput = int(input("""The Forest Outskirts is a dense and mysterious woodland located on the border of a thriving kingdom. Known for its thick,towering trees and ever-present mist,
-the area is a blend of untamed wilderness and forgotten ruins. Ancient stone paths, hidden beneath years of undergrowth, crisscross theterrain.
+the area is a blend of untamed wilderness and forgotten ruins. Ancient stone paths, hidden beneath years of undergrowth, crisscross the terrain.
 The sound of distant creatures can be heard at all hours, and rumors abound of mystical artifacts lost in the forest’s depths.\n\n[1] Enter\n[2] Exit\n"""))
             match forestoutskirtsDescriptionInput:
                 case 1:
