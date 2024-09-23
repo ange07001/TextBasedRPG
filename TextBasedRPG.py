@@ -125,7 +125,7 @@ print("\n")
 while play:
     while isMainMenu:
         try:
-            mainMenuInput = int(input("Main Menu\n[1] Play\n[2] Exit\n"))
+            mainMenuInput = int(input("\nMain Menu\n[1] Play\n[2] Exit\n"))
             if mainMenuInput == 1:
                 isMenu = True
                 isMainMenu = False
