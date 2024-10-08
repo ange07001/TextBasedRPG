@@ -44,13 +44,12 @@ print(banner)
 print("#"*10 + " initializing " + "#"*10)
 
 class Player:
-    def __init__(self, health, xp, speed, armor, damage, inventory=[]):
+    def __init__(self, health, xp, speed, armor, damage):
         self.health = health
         self.xp = xp
         self.speed = speed
         self.armor = armor
         self.damage = damage
-        self.inventory = inventory
 
     def playerToDict(self):
         return {
@@ -58,9 +57,9 @@ class Player:
             "xp": self.xp,
             "speed": self.speed,
             "armor": self.armor,
-            "damage": self.damage,
-            "inventory": self.inventory
+            "damage": self.damage
         }
+
     @classmethod
     def dictToPlayer(cls, data):
         return cls(
@@ -68,8 +67,7 @@ class Player:
             xp=data["xp"],
             speed=data["speed"],
             armor=data["armor"],
-            damage=data["damage"],
-            inventory=data.get("inventory",[])
+            damage=data["damage"]
         )
 
 def saveGame():
@@ -97,13 +95,14 @@ class Enemy:
         self.speed = speed
         self.armor = armor
 
+
 if os.path.exists(file_path):
     print("Save file already exists, loading save game...")
     player, save_game = loadGame()
 elif not os.path.exists(file_path):
     print("Save file does not exist or is corrupt, creating a new one...")
     player = Player(100, 0, 1, 0, 1)
-
+    
     save_game = {
         "player": Player.playerToDict(player),
 
@@ -168,11 +167,6 @@ while play:
         if statsInput == 1:
             isStats = False
             isMenu = True
-    
-    while isInventory:
-        print()
-        inventoryInput = input()
-
     while isExplore:
         try:
             exploreInput = int(input(f"\nChoose the location of your exploration\n{Ansi.Format('[1] Forest Outskirts','32')}\n[2] ?????\n[3] ?????\n[4] Exit\n"))
@@ -189,7 +183,6 @@ while play:
                     print(error)
         except ValueError:
             print(error)
-
     while isForestoutskirtsDescription:
         try:
             Ansi.Print("\nForest Outskirts\n","32")
