@@ -42,6 +42,20 @@ banner = """
 print(banner)
 print("#"*10 + " initializing " + "#"*10)
 
+class Inventory:
+    def remove(self,item,quantity,callError = False):
+        if type(quantity) == "int" and quantity > 0:
+            if item in save_game["Inventory"]:
+                if save_game[item] > quantity:
+                    save_game[item] -= quantity
+                elif save_game[item] <= quantity:
+                    del save_game[item]
+                saveGame()
+            elif not item in save_game ["inventory"] and callError:
+                Ansi.Print("Item is not in inventory","31")
+        elif not type(quantity) == "int" or quantity <= 0 and callError: 
+            Ansi.Print("Quantity is not valid","31")
+
 class Player:
     def __init__(self, health, xp, speed, armor, damage):
         self.health = health
@@ -105,6 +119,12 @@ elif not os.path.exists(file_path):
     save_game = {
         "player": Player.playerToDict(player),
 
+        "inventory": {
+            "sword": 1,
+            "apple": 1,
+            "potion": 1,
+        },
+
         "gameState": {
             "location": "swamps"
         },
@@ -157,6 +177,22 @@ while play:
         except ValueError:
             print(error)
 
+    while isInventory:
+        try:
+            for item, quantity in save_game["inventory"].items():
+                print("-" * 25)
+                print(f"{item}: {quantity}")
+            isInventoryInput = int(input("\n[1] Discard item\n[2] Exit\n"))
+            match isInventoryInput:
+                case 1:
+                    
+
+
+        except ValueError:
+            print(error)
+
+
+
     while isStats:
         print(f"\nTotal xp gained: {player.xp} xp")
         print(f"Items looted: {save_game['stats']['itemsLooted']} items")
@@ -186,7 +222,7 @@ while play:
         try:
             Ansi.Print("\nForest Outskirts\n","32")
             forestoutskirtsDescriptionInput = int(input("""The Forest Outskirts is a dense and mysterious woodland located on the border of a thriving kingdom. Known for its thick,towering trees and ever-present mist,
-the area is a blend of untamed wilderness and forgotten ruins. Ancient stone paths, hidden beneath years of undergrowth, crisscross theterrain.
+the area is a blend of untamed wilderness and forgotten ruins. Ancient stone paths, hidden beneath years of undergrowth, crisscross the terrain.
 The sound of distant creatures can be heard at all hours, and rumors abound of mystical artifacts lost in the forest’s depths.\n\n[1] Enter\n[2] Exit\n"""))
             match forestoutskirtsDescriptionInput:
                 case 1:
