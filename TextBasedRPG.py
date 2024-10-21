@@ -182,9 +182,15 @@ while play:
 
     while isInventory:
         try:
+            header = f"|{"Item":<15}|{"Quantity":>10}|"
+            line = len(header)*"-"
+            print("\n")
+            print(line)
+            print(header)
+            print(line)
             for item, quantity in save_game["inventory"].items():
-                print("-" * 25)
-                print(f"{item}: {quantity}")
+                print(f"|{item:<15}|{quantity:>10}|")
+            print(line)
             isInventoryInput = int(input("\n[1] Discard item\n[2] Exit\n"))
             match isInventoryInput:
                 case 1: 
