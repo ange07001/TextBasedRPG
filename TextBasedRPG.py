@@ -44,7 +44,8 @@ print(banner)
 print("#"*10 + " initializing " + "#"*10)
 
 class Inventory:
-    def remove(self,item,quantity,callError = False):
+    @staticmethod
+    def remove(item,quantity,callError = False):
         if type(quantity) is int and quantity > 0:
             if item in save_game["inventory"]:
                 if save_game["inventory"][item] > quantity:
@@ -109,8 +110,6 @@ class Enemy:
         self.speed = speed
         self.armor = armor
 
-
-inventory = Inventory()
 
 
 if os.path.exists(file_path):
@@ -182,21 +181,34 @@ while play:
 
     while isInventory:
         try:
-            header = f"|{"Item":<15}|{"Quantity":>10}|"
-            line = len(header)*"-"
+            maxItemLen = len("Item")
+            maxQuantityLen = len("Quantity")
+            
+            # Calculate the maximum lengths for item names and quantities
+            for item, quantity in save_game["inventory"].items():
+                if len(item) > maxItemLen:
+                    maxItemLen = len(item)
+                if len(str(quantity)) > maxQuantityLen:
+                    maxQuantityLen = len(str(quantity))
+            
+            extraLen = 3
+            header = f"|{'Item':<{maxItemLen + extraLen}}|{'Quantity':>{maxQuantityLen + extraLen}}|"
+            line = len(header) * "-"
+            
             print("\n")
             print(line)
             print(header)
             print(line)
             for item, quantity in save_game["inventory"].items():
-                print(f"|{item:<15}|{quantity:>10}|")
+                print(f"|{item:<{maxItemLen + extraLen}}|{quantity:>{maxQuantityLen + extraLen}}|")
             print(line)
+            
             isInventoryInput = int(input("\n[1] Discard item\n[2] Exit\n"))
             match isInventoryInput:
                 case 1: 
                     item = input("Enter the item you want to discard: ")
                     quantity = int(input("Enter the quantity you want to discard: "))
-                    inventory.remove(item,quantity,True)
+                    Inventory.remove(item, quantity, True)
                 case 2:
                     isInventory = False
                     isMenu = True
