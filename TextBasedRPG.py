@@ -43,6 +43,21 @@ banner = """
 print(banner)
 print("#"*10 + " initializing " + "#"*10)
 
+class Inventory:
+    @staticmethod
+    def remove(item,quantity,callError = False):
+        if type(quantity) is int and quantity > 0:
+            if item in save_game["inventory"]:
+                if save_game["inventory"][item] > quantity:
+                    save_game["inventory"][item] -= quantity
+                elif save_game["inventory"][item] <= quantity:
+                    del save_game["inventory"][item]
+                saveGame()
+            elif not item in save_game ["inventory"] and callError:
+                Ansi.Print("Item is not in inventory","31")
+        elif type(quantity) is not int or quantity <= 0 and callError: 
+            Ansi.Print("Quantity is not valid","31")
+
 class Player:
     def __init__(self, health, xp, speed, armor, damage):
         self.health = health
@@ -96,6 +111,7 @@ class Enemy:
         self.armor = armor
 
 
+
 if os.path.exists(file_path):
     print("Save file already exists, loading save game...")
     player, save_game = loadGame()
@@ -106,6 +122,11 @@ elif not os.path.exists(file_path):
     save_game = {
         "player": Player.playerToDict(player),
 
+        "inventory": {
+            "sword": 1,
+            "apple": 1,
+            "potion": 1,
+        },
         "gameState": {
             "location": "swamps"
         },
@@ -157,6 +178,46 @@ while play:
                     print(error)
         except ValueError:
             print(error)
+
+    while isInventory:
+        try:
+            maxItemLen = len("Item")
+            maxQuantityLen = len("Quantity")
+            
+            # Calculate the maximum lengths for item names and quantities
+            for item, quantity in save_game["inventory"].items():
+                if len(item) > maxItemLen:
+                    maxItemLen = len(item)
+                if len(str(quantity)) > maxQuantityLen:
+                    maxQuantityLen = len(str(quantity))
+            
+            extraLen = 3
+            header = f"|{'Item':<{maxItemLen + extraLen}}|{'Quantity':>{maxQuantityLen + extraLen}}|"
+            line = len(header) * "-"
+            
+            print("\n")
+            print(line)
+            print(header)
+            print(line)
+            for item, quantity in save_game["inventory"].items():
+                print(f"|{item:<{maxItemLen + extraLen}}|{quantity:>{maxQuantityLen + extraLen}}|")
+            print(line)
+            
+            isInventoryInput = int(input("\n[1] Discard item\n[2] Exit\n"))
+            match isInventoryInput:
+                case 1: 
+                    item = input("Enter the item you want to discard: ")
+                    quantity = int(input("Enter the quantity you want to discard: "))
+                    Inventory.remove(item, quantity, True)
+                case 2:
+                    isInventory = False
+                    isMenu = True
+                case _:
+                    print(error)
+        except ValueError:
+            print(error)
+
+
 
     while isStats:
         print(f"\nTotal xp gained: {player.xp} xp")
