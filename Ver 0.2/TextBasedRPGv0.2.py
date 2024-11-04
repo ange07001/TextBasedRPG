@@ -19,8 +19,42 @@ elif not os.path.exists(utils.itemsFilePath) or not os.path.exists(utils.worldFi
 if os.path.exists(utils.playerJsonFilePath):
     utils.Ansi.Print("Save file already exists, loading save game...", "32")
     player.player = player.loadGame()
-    print(player.player)
 elif not os.path.exists(utils.playerJsonFilePath):
     utils.Ansi.Print("Save file does not exist or is corrupt, creating a new one...", "33")
     player.saveGame()
 
+def MainMenu():
+    while True:
+        try:
+            mainMenuInput = int(input("\nMain Menu\n[1] Play\n[2] Exit\n"))
+            if mainMenuInput == 1:
+                Menu()
+            elif mainMenuInput == 2:
+                break
+            else:
+                print(utils.error)
+        except ValueError:
+            print(utils.error)
+
+def Menu():
+    while True:
+        try:
+            print("\nMenu")
+            menuInput = int(input("[1] Explore \n[2] Inventory \n[3] Stats\n[4] Exit\n"))
+            match menuInput:
+                case 1:
+                    break
+                case 2:
+                    break
+                case 3:
+                    break
+                case 4:
+                    MainMenu()
+                case _:
+                    print(utils.error)
+        except ValueError:
+            print(utils.error)
+
+
+
+MainMenu()

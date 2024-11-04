@@ -21,6 +21,8 @@ banner = """
 
 """
 
+error = Ansi.Format("\n" + "=" * 10 + "ERROR" + "=" * 10 + "\n","31") 
+
 currentDir = os.path.dirname(os.path.abspath(__file__))
 
 playerJsonFilename = 'player.json'
