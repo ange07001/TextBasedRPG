@@ -1,5 +1,6 @@
 # Utility functions for the game
 import sys
+import os
 class Ansi:
     def Format(text, color):
         return "\033[0;" + color + "m" + text + "\033[0m"
@@ -19,3 +20,14 @@ banner = """
   \_/\___/_/\_\\__|  \____/ \__,_|___/\___|\__,_| \_| \_\_|    \____/
 
 """
+
+currentDir = os.path.dirname(os.path.abspath(__file__))
+
+playerJsonFilename = 'player.json'
+playerJsonFilePath = os.path.join(currentDir, playerJsonFilename)
+
+itemsFilename = 'items.json'
+itemsFilePath = os.path.join(currentDir, itemsFilename)
+
+worldFilename = 'world.json'
+worldFilePath = os.path.join(currentDir, worldFilename)
