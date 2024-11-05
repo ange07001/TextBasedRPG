@@ -28,7 +28,7 @@ player = {
     "attributes": {
         "health": 100,
         "speed": 100,
-        "level": 1,
+        "xp": 0,
     },
     "inventory": {
         "stoneSword": 1,

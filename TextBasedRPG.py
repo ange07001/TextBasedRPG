@@ -228,6 +228,8 @@ while play:
         if statsInput == 1:
             isStats = False
             isMenu = True
+
+
     while isExplore:
         try:
             exploreInput = int(input(f"\nChoose the location of your exploration\n{Ansi.Format('[1] Forest Outskirts','32')}\n[2] ?????\n[3] ?????\n[4] Exit\n"))
@@ -262,4 +264,4 @@ The sound of distant creatures can be heard at all hours, and rumors abound of m
         except ValueError:
             print(error)
     
-    ##while isLocationForestOutskirts:
+# while isLocationForestOutskirts:
