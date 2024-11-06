@@ -46,9 +46,11 @@ def Menu():
                     Explore()
                     break
                 case 2:
+                    Inventory()
                     break
                 case 3:
                     Stats()
+                    break
                 case 4:
                     MainMenu()
                     break
@@ -103,5 +105,48 @@ def Stats():
         if statsInput == 1:
             Menu()
             break
+
+def Inventory(returnToMenu = False):
+    while True:
+        try:
+            maxItemLen = len("Item")
+            maxQuantityLen = len("Quantity")
+            
+            # Calculate the maximum lengths for item names and quantities
+            for item, quantity in player.player["inventory"].items:
+                if len(item) > maxItemLen:
+                    maxItemLen = len(item)
+                if len(str(quantity)) > maxQuantityLen:
+                    maxQuantityLen = len(str(quantity))
+            
+            extraLen = 3
+            header = f"|{'Item':<{maxItemLen + extraLen}}|{'Quantity':>{maxQuantityLen + extraLen}}|"
+            line = len(header) * "-"
+            
+            print("\n")
+            print(line)
+            print(header)
+            print(line)
+            for item, quantity in player.player["inventory"].items():
+                print(f"|{item:<{maxItemLen + extraLen}}|{quantity:>{maxQuantityLen + extraLen}}|")
+            print(line)
+            
+            isInventoryInput = int(input("\n[1] Discard item\n[2] Exit\n"))
+            match isInventoryInput:
+                case 1: 
+                    item = input("Enter the item you want to discard: ")
+                    quantity = int(input("Enter the quantity you want to discard: "))
+                    inventory.remove(item, quantity,returnToMenu, True)
+                case 2:
+                    if returnToMenu == False:
+                        break
+                    elif returnToMenu == True:
+                        Menu()
+                        break
+                case _:
+                    print(utils.error)
+        except ValueError:
+            print(utils.error)
+
 
 MainMenu()
