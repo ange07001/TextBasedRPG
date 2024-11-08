@@ -5,9 +5,9 @@ def remove(item,quantity,returnToMenu,callError = False):
         if type(quantity) is int and quantity > 0:
             if item in player.player["inventory"]:
                 if player.player["inventory"][item] > quantity:
-                    player["inventory"][item] -= quantity
-                elif player["inventory"][item] <= quantity:
-                    del player["inventory"][item]
+                    player.player["inventory"][item] -= quantity
+                elif player.player["inventory"][item] <= quantity:
+                    del player.player["inventory"][item]
                 if returnToMenu == True:
                     player.saveGame()
             elif not item in player.player ["inventory"] and callError:
