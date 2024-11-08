@@ -9,7 +9,15 @@ This is a text-based role-playing game developed as a training project to improv
 - Inventory Management: View and manage items in your inventory.
 - Player Stats: Track statistics such as items looted, enemies defeated, and times died.
 - Save and Load: Game progress is saved and can be loaded from player.json.
-- Ansi Formatting: Utilizes ANSI codes for colored text output in the console.
+
+  ### Future Features
+    - Ability to equip armor, equip weapons, use potions and items
+    - Map "Forest Outskirts":
+      - Unlockable locations
+      - Different bosses and enemies
+    - NPC Enemies that will fight you
+    - More items, armor, potions and weapons which are going to be obtainable on the maps
+    - Ability to loot crates and dead enemies
 
 ## Getting Started
 
