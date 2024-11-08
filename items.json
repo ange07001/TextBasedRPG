@@ -1,0 +1,17 @@
+{
+    "healing" : {
+        "Small Potion": {
+            "healingHp": 50
+        }
+    },
+    "weapons": {
+        "Stone Sword": {
+            "damage":10
+        }
+    },
+    "armor": {
+        "Leather Jacket": {
+            "armor": 5
+        }
+    }
+}

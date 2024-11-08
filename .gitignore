@@ -1,2 +1,3 @@
-*.json
+player.json
 /test
+__pycache__/
