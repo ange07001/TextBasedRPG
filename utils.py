@@ -21,7 +21,11 @@ banner = """
 
 """
 
-error = Ansi.Format("\n" + "=" * 10 + "ERROR" + "=" * 10 + "\n","31") 
+def error(message = ""):
+    if len(message) > 0:
+        Ansi.Print("\n" + "=" * 10 + "ERROR" + " "+ message + "=" * 10 + "\n","31") 
+    else:
+        Ansi.Print("\n" + "=" * 10 + "ERROR" + "=" * 10 + "\n","31")
 
 currentDir = os.path.dirname(os.path.abspath(__file__))
 

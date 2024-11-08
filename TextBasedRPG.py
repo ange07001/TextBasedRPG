@@ -1,7 +1,4 @@
-import json
 import os
-import sys
-
 import utils
 import player
 import inventory
@@ -34,9 +31,9 @@ def MainMenu():
             elif mainMenuInput == 2:
                 exit()
             else:
-                print(utils.error)
+                utils.error("Invalid selection")
         except ValueError:
-            print(utils.error)
+            utils.error("Please enter a valid number")
 
 def Menu():
     while True:
@@ -57,9 +54,9 @@ def Menu():
                     MainMenu()
                     break
                 case _:
-                    print(utils.error)
+                    utils.error("Invalid selection")
         except ValueError:
-            print(utils.error)
+            utils.error("Please enter a valid number")
 
 def Explore():
     while True:
@@ -75,9 +72,9 @@ def Explore():
                     Menu()
                     break
                 case _:
-                    print(utils.error)
+                    utils.error("Invalid selection")
         except ValueError:
-            print(utils.error)
+            utils.error("Please enter a valid number")
 
 def ForestoutskirtsDescription():
     while True:
@@ -93,24 +90,46 @@ The sound of distant creatures can be heard at all hours, and rumors abound of m
                     Explore()
                     break
                 case _:
-                    print(utils.error)
+                    utils.error("Invalid selection")
         except ValueError:
-            print(utils.error)
+            utils.error("Please enter a valid number")
 
 def Stats():
     while True:
-        print(f"\nTotal xp gained: {player.player['attributes']['xp']} xp")
-        print(f"Items looted: {player.player['stats']['itemsLooted']} items")
-        print(f"Enemies defeated: {player.player['stats']['enemiesDefeated']} enemies")
-        print(f"Times died: {player.player['stats']['timesDied']} deaths")
-        statsInput = int(input("\n[1] Exit\n"))
-        if statsInput == 1:
-            Menu()
-            break
+        try:
+            print(f"\nTotal xp gained: {player.player['attributes']['xp']} xp")
+            print(f"Items looted: {player.player['stats']['itemsLooted']} items")
+            print(f"Enemies defeated: {player.player['stats']['enemiesDefeated']} enemies")
+            print(f"Times died: {player.player['stats']['timesDied']} deaths")
+
+            statsInput = int(input("\n[1] Exit\n"))
+            if statsInput == 1:
+                Menu()
+                break
+            else:
+                utils.error("Invalid selection")
+        except ValueError:
+            utils.error("Please enter a valid number")
 
 def Inventory(returnToMenu = False):
     while True:
         try:
+            
+            # printing out player attributes
+            attributes = player.player["attributes"]
+
+            # Find the maximum widths for attributes and values
+            max_attr_len = max(len(attr) for attr in attributes)
+            max_value_len = max(len(str(value)) for value in attributes.values())
+
+            line = "-" * (max_attr_len + max_value_len + 7)
+
+            print("\n" + line)
+            for attr, value in attributes.items():
+                print(f"| {attr:<{max_attr_len}} | {value:>{max_value_len}} |")
+            print(line)
+
+            # printing out player inventory
             maxItemLen = len("Item")
             maxQuantityLen = len("Quantity")
             
@@ -125,7 +144,6 @@ def Inventory(returnToMenu = False):
             header = f"|{'Item':<{maxItemLen + extraLen}}|{'Quantity':>{maxQuantityLen + extraLen}}|"
             line = len(header) * "-"
             
-            print("\n")
             print(line)
             print(header)
             print(line)
@@ -146,9 +164,9 @@ def Inventory(returnToMenu = False):
                         Menu()
                         break
                 case _:
-                    print(utils.error)
+                    utils.error("Invalid selection")
         except ValueError:
-            print(utils.error)
+            utils.error("Please enter a valid number and or item")
 
 
 MainMenu()
